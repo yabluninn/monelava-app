@@ -1,0 +1,366 @@
+@import "../../lib/css/normalize.css";
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap");
+
+:root {
+  --border-color: rgb(172, 172, 172);
+  --bg-color: rgb(85, 170, 85);
+}
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  overflow: hidden;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+#hidden {
+  display: none;
+}
+/*---------------- APP --------------------- */
+.app {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(240, 239, 247);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.header {
+  margin-top: 5px;
+  background-color: white;
+  border-radius: 32px;
+  width: 30%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header-buttons-block {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+}
+.header-buttons-block button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  border: 0;
+  background-color: transparent;
+  font-size: 25px;
+  color: rgb(140, 114, 255);
+}
+
+#header-current-btn {
+  margin-top: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: rgb(86, 77, 217);
+  color: white;
+}
+
+#current-page {
+  display: flex;
+}
+
+.adding-modal-window {
+  width: 30%;
+  height: 88%;
+  background-color: white;
+  border-radius: 32px;
+  display: none;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 15px;
+  padding-top: 15px;
+}
+
+.adding-types-buttons {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: space-evenly;
+}
+.adding-types-buttons button {
+  width: 40%;
+  height: 40px;
+  font-size: 20px;
+  border: 1px solid rgb(86, 77, 217);
+  border-radius: 10px;
+  background-color: transparent;
+  color: rgb(86, 77, 217);
+  transition: all 0.3s;
+}
+.adding-types-buttons button:hover {
+  background-color: rgb(86, 77, 217);
+  color: white;
+}
+
+#current-adding-types-btn {
+  border: 0;
+  background-color: rgb(86, 77, 217);
+  color: white;
+}
+.adding-expense-block {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+}
+.adding-amount-block {
+  width: 48%;
+  height: fit-content;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.adding-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px;
+  margin-top: 0px;
+}
+.adding-amount-date-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 85%;
+}
+.adding-amount-input {
+  width: 85%;
+  height: 40px;
+  border: 0;
+  border-radius: 15px;
+  background-color: rgb(231, 230, 245);
+  padding-left: 20px;
+  font-size: 25px;
+  color: black;
+}
+.adding-amount-input:focus {
+  outline: none;
+}
+.adding-category-block {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.adding-categories-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 90%;
+  height: 90px;
+  overflow-y: auto;
+}
+/* .adding-categories-container::-webkit-scrollbar {
+  display: none;
+}
+.adding-categories-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+} */
+.adding-category-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-left: 15px;
+  width: 80px;
+  height: 90px;
+  border-radius: 15px;
+}
+/* #current-adding-category {
+  background-color: aquamarine;
+  color: white;
+} */
+.adding-category-btn {
+  width: 60px;
+  height: 60px;
+  border: 0;
+  background-color: rgb(60, 211, 60);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.adding-category-btn i {
+  color: white;
+  font-size: 25px;
+}
+.adding-category-name {
+  font-size: 14px;
+  margin: 0;
+  margin-top: 7px;
+}
+.adding-date-block {
+  width: 48%;
+  height: fit-content;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.adding-date-input {
+  width: 80%;
+  height: 40px;
+  border: 0;
+  border-radius: 15px;
+  background-color: rgb(231, 230, 245);
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 20px;
+  color: black;
+}
+.adding-date-input:focus {
+  outline: none;
+}
+.adding-details-block {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.adding-details-input {
+  width: 80%;
+  height: 40px;
+  border: 0;
+  border-radius: 15px;
+  background-color: rgb(231, 230, 245);
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 20px;
+  color: black;
+}
+.adding-details-input::placeholder {
+  font-size: 17px;
+}
+.adding-details-input:focus {
+  outline: none;
+}
+.adding-buttons-block {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+.adding-buttons-block button {
+  width: 90%;
+  height: 40px;
+  border: 1px solid rgb(86, 77, 217);
+  border-radius: 10px;
+  font-size: 20px;
+}
+.adding-buttons-block button:nth-child(1) {
+  background-color: rgb(86, 77, 217);
+  color: white;
+}
+.adding-buttons-block button:nth-child(2) {
+  background-color: transparent;
+  color: rgb(86, 77, 217);
+  margin-top: 10px;
+}
+.adding-methods-btns {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  width: 150px;
+}
+.adding-methods-block {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+.adding-method-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.adding-method-block button {
+  width: 55px;
+  height: 55px;
+  border: 1px solid rgb(86, 77, 217);
+  border-radius: 15px;
+  background-color: transparent;
+  font-size: 25px;
+  color: rgb(86, 77, 217);
+  transition: all 0.3s;
+}
+.adding-method-block button:hover {
+  background-color: rgb(86, 77, 217);
+  color: white;
+}
+
+.adding-method-block p {
+  font-size: 18px;
+  margin: 0;
+  margin-top: 7px;
+}
+
+#current-adding-method {
+  background-color: rgb(86, 77, 217);
+  color: white;
+}
+
+/* -------------- Transactions Page ---------------- */
+.transactions-page {
+  width: 30%;
+  height: 88%;
+  background-color: white;
+  border-radius: 32px;
+  display: none;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 15px;
+  padding-top: 15px;
+}
+
+/* --------- Categories buttons -------------- */
+#new-category-btn {
+  background-color: transparent;
+  border: 1px solid rgb(86, 77, 217);
+}
+#new-category-btn i {
+  color: rgb(86, 77, 217);
+}
+#groceries-category-btn {
+  background-color: rgb(161, 215, 131);
+}
+/* #health-category-btn {
+  background-color: red;
+}
+#restaurants-category-btn {
+  background-color: orange;
+}
+#transport-category-btn {
+  background-color: rgb(0, 132, 255);
+}
+#taxi-category-btn {
+  background-color: rgb(122, 95, 31);
+} */
