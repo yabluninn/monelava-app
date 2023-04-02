@@ -3,7 +3,9 @@
 
 :root {
   --border-color: rgb(172, 172, 172);
-  --bg-color: rgb(85, 170, 85);
+  --bg-color: rgb(241, 241, 241);
+  /* --main-color: rgb(86, 77, 217); */
+  --main-color: rgb(33, 135, 251);
 }
 
 body {
@@ -22,20 +24,33 @@ button:hover {
 .app {
   width: 100vw;
   height: 100vh;
-  background-color: rgb(240, 239, 247);
+  background: rgb(249, 241, 241);
+  background: linear-gradient(
+    210deg,
+    rgba(249, 241, 241, 1) 0%,
+    rgb(115, 146, 249) 83%
+  );
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 .header {
-  margin-top: 5px;
-  background-color: white;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.27);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 32px;
   width: 30%;
   height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  bottom: 0px;
+  z-index: 100;
 }
 .header-buttons-block {
   display: flex;
@@ -47,18 +62,28 @@ button:hover {
 .header-buttons-block button {
   width: 50px;
   height: 50px;
-  border-radius: 50px;
+  border-radius: 15px;
   border: 0;
-  background-color: transparent;
+  background-color: white;
+  /* background: rgba(255, 255, 255, 0.255);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3); */
   font-size: 25px;
-  color: rgb(140, 114, 255);
+  color: var(--main-color);
+  transition: all 0.3s;
+}
+
+.header-buttons-block button:hover {
+  background: rgba(255, 255, 255, 0.692);
 }
 
 #header-current-btn {
-  margin-top: 20px;
-  width: 60px;
-  height: 60px;
-  background-color: rgb(86, 77, 217);
+  width: 50px;
+  height: 50px;
+  background-color: var(--main-color);
   color: white;
 }
 
@@ -68,15 +93,21 @@ button:hover {
 
 .adding-modal-window {
   width: 30%;
-  height: 88%;
-  background-color: white;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.41);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 32px;
   display: none;
   justify-content: start;
   align-items: center;
   flex-direction: column;
-  margin-top: 15px;
   padding-top: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .adding-types-buttons {
@@ -84,25 +115,32 @@ button:hover {
   height: fit-content;
   display: flex;
   justify-content: space-evenly;
+  margin-top: 15px;
 }
 .adding-types-buttons button {
   width: 40%;
   height: 40px;
   font-size: 20px;
-  border: 1px solid rgb(86, 77, 217);
+  border: 0;
+  /* border: 1px solid var(--main-color); */
   border-radius: 10px;
-  background-color: transparent;
-  color: rgb(86, 77, 217);
+  background-color: white;
+  color: var(--main-color);
   transition: all 0.3s;
 }
+
 .adding-types-buttons button:hover {
-  background-color: rgb(86, 77, 217);
+  background-color: var(--main-color);
   color: white;
+}
+
+.adding-types-buttons button i {
+  margin-right: 15px;
 }
 
 #current-adding-types-btn {
   border: 0;
-  background-color: rgb(86, 77, 217);
+  background-color: var(--main-color);
   color: white;
 }
 .adding-expense-block {
@@ -120,9 +158,14 @@ button:hover {
   flex-direction: column;
   margin-top: 10px;
 }
-.adding-title {
-  font-size: 20px;
+.adding-header {
+  font-size: 27px;
   font-weight: bold;
+  margin: 0;
+}
+.adding-title {
+  font-size: 18px;
+  /* font-weight: bold; */
   margin: 15px;
   margin-top: 0px;
 }
@@ -136,9 +179,9 @@ button:hover {
 .adding-amount-input {
   width: 85%;
   height: 40px;
-  border: 0;
+  border: 1px solid var(--main-color);
   border-radius: 15px;
-  background-color: rgb(231, 230, 245);
+  background-color: var(--bg-color);
   padding-left: 20px;
   font-size: 25px;
   color: black;
@@ -147,13 +190,20 @@ button:hover {
   outline: none;
 }
 .adding-category-block {
-  width: 100%;
+  width: 85%;
   height: fit-content;
   display: flex;
   justify-content: start;
   align-items: center;
   flex-direction: column;
-  margin-top: 10px;
+  margin-top: 15px;
+  padding-top: 5px;
+  background: rgba(255, 255, 255, 0.32);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .adding-categories-container {
   display: flex;
@@ -161,7 +211,7 @@ button:hover {
   align-items: center;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 90%;
+  width: 100%;
   height: 90px;
   overflow-y: auto;
 }
@@ -178,7 +228,7 @@ button:hover {
   align-items: center;
   flex-direction: column;
   margin-left: 15px;
-  width: 80px;
+  width: 75px;
   height: 90px;
   border-radius: 15px;
 }
@@ -219,7 +269,8 @@ button:hover {
   height: 40px;
   border: 0;
   border-radius: 15px;
-  background-color: rgb(231, 230, 245);
+  border: 1px solid var(--main-color);
+  background-color: var(--bg-color);
   padding-left: 20px;
   padding-right: 20px;
   font-size: 20px;
@@ -242,7 +293,8 @@ button:hover {
   height: 40px;
   border: 0;
   border-radius: 15px;
-  background-color: rgb(231, 230, 245);
+  border: 1px solid var(--main-color);
+  background-color: var(--bg-color);
   padding-left: 20px;
   padding-right: 20px;
   font-size: 20px;
@@ -261,22 +313,24 @@ button:hover {
   justify-content: start;
   align-items: center;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 .adding-buttons-block button {
   width: 90%;
   height: 40px;
-  border: 1px solid rgb(86, 77, 217);
+  border: 1px solid var(--main-color);
   border-radius: 10px;
   font-size: 20px;
+  background-color: white;
+  color: var(--main-color);
 }
 .adding-buttons-block button:nth-child(1) {
-  background-color: rgb(86, 77, 217);
+  background-color: var(--main-color);
   color: white;
 }
 .adding-buttons-block button:nth-child(2) {
-  background-color: transparent;
-  color: rgb(86, 77, 217);
+  background-color: white;
+  color: var(--main-color);
   margin-top: 10px;
 }
 .adding-methods-btns {
@@ -304,15 +358,16 @@ button:hover {
 .adding-method-block button {
   width: 55px;
   height: 55px;
-  border: 1px solid rgb(86, 77, 217);
+  border: 1px solid var(--main-color);
   border-radius: 15px;
-  background-color: transparent;
   font-size: 25px;
-  color: rgb(86, 77, 217);
+  border-radius: 10px;
+  background-color: white;
+  color: var(--main-color);
   transition: all 0.3s;
 }
 .adding-method-block button:hover {
-  background-color: rgb(86, 77, 217);
+  background-color: var(--main-color);
   color: white;
 }
 
@@ -323,28 +378,255 @@ button:hover {
 }
 
 #current-adding-method {
-  background-color: rgb(86, 77, 217);
+  background-color: var(--main-color);
   color: white;
 }
 
 /* -------------- Transactions Page ---------------- */
 .transactions-page {
   width: 30%;
-  height: 88%;
-  background-color: white;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.41);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 32px;
   display: none;
   justify-content: start;
   align-items: center;
   flex-direction: column;
-  margin-top: 15px;
   padding-top: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
+.transactions-page-types-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 65px;
+  border-radius: 32px;
+  background-color: rgb(241, 241, 241);
+  border: 1px solid var(--main-color);
+  width: 85%;
+  height: 40px;
+}
+.transactions-page-types-block button {
+  width: 33.3%;
+  height: 100%;
+  border: 0;
+  border-radius: 32px;
+  font-size: 17px;
+  color: black;
+  background-color: transparent;
+}
+#tpt-current-btn {
+  background-color: var(--main-color);
+  color: white;
+  font-size: 20px;
+}
+.tp-current-date {
+  width: 40%;
+  height: 40px;
+  font-size: 20px;
+  font-weight: bold;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: 1px solid var(--main-color);
+  border-radius: 32px;
+  margin-top: 20px;
+  background-color: var(--bg-color);
+}
+.tp-current-date:focus {
+  border: 1px solid var(--main-color);
+}
+/* .tp-current-month {
+  margin: 0;
+  margin-top: 10px;
+  font-size: 20px;
+}
+.tp-current-month i {
+  margin-right: 15px;
+} */
+.transactions-page-container {
+  width: 89.9%;
+  height: 70%;
+  /* border: 1px solid; */
+  margin-top: 15px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.tp-item {
+  width: 99.7%;
+  min-height: 90px;
+  height: fit-content;
+  /* border: 1px solid var(--main-color); */
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: rgb(241, 241, 241);
+}
+.tp-item-main-block {
+  width: 95%;
+  height: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgb(176, 176, 176);
+}
+.tp-item-block1 {
+  width: 75%;
+  height: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: row;
+}
+.tp-category-block {
+  width: 55px;
+  height: 55px;
+  border-radius: 15px;
+  color: white;
+  background-color: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 7px;
+}
+.tp-category-block i {
+  font-size: 25px;
+}
+.tp-info-block {
+  width: 60%;
+  height: fit-content;
+  margin-left: 10px;
+}
+
+.tp-category-name {
+  margin: 0;
+  font-size: 23px;
+  font-weight: bold;
+}
+.tp-details {
+  margin: 0;
+  font-size: 17px;
+}
+.tp-item-block2 {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+.tp-amount {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 0;
+}
+.tp-item-submain-block {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+.tp-options-block {
+  width: 20%;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+}
+.tp-option {
+  width: 30px;
+  height: 20px;
+  /* background-color: rgb(218, 0, 0); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  color: var(--main-color ю);
+}
+.tp-date {
+  margin: 0;
+  margin-left: 7px;
+  font-size: 15px;
+  width: 45%;
+}
+/* .transactions-page-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px;
+  margin-top: 0px;
+} */
+/* .transactions-page-totals-block {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 55px;
+}
+.transactions-page-total-item {
+  width: 32%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 15px;
+  border: 1px solid var(--main-color);
+  background-color: white;
+  color: rgb(86, 77, 217);
+}
+.transactions-page-total-item i {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+.transactions-page-total-item-subblock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.transactions-page-total-title {
+  font-size: 17px;
+  margin: 5px;
+}
+.transactions-page-total-income-amount {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 5px;
+  margin-top: 0;
+}
+.transactions-page-total-expense-amount {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 5px;
+  margin-top: 0;
+}
+.transactions-page-total-profit-amount {
+  font-size: 23px;
+  font-weight: bold;
+  margin: 5px;
+  margin-top: 0;
+} */
 
 /* --------- Categories buttons -------------- */
 #new-category-btn {
   background-color: transparent;
-  border: 1px solid rgb(86, 77, 217);
+  border: 1px solid var(--main-color);
 }
 #new-category-btn i {
   color: rgb(86, 77, 217);

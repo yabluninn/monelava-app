@@ -53,14 +53,10 @@ let month = {
 let transaction = {
   amount: 0,
   type: "Income",
-  date: {
-    day: 0,
-    month: 0,
-    year: 0,
-  },
+  date: "",
   method: "Cash",
   details: "",
-  category: "",
+  category: {},
 };
 
 let category = {
@@ -106,6 +102,9 @@ function start() {
   headerAddingPageBtn.addEventListener("click", function () {
     openPage("Adding");
   });
+  headerTransactionsPageBtn.addEventListener("click", function () {
+    openPage("Transactions");
+  });
   loadData();
 }
 
@@ -115,23 +114,32 @@ function loadData() {
     let parsedRequiredUser = JSON.parse(requiredUser);
   } else {
     let newUser = Object.assign({}, user);
-
-    let firstMonth = Object.assign({}, month);
-    firstMonth.monthNumber = moment().month() + 1;
-    firstMonth.income = 0;
-    firstMonth.expense = 0;
-    firstMonth.transactions = [];
-    newUser.monthes.push(firstMonth);
+    for (let i = 0; i < 12; i++) {
+      let newMonth = {
+        monthNumber: i,
+        income: 0,
+        expense: 0,
+        transactions: [],
+      };
+      newUser.monthes.push(newMonth);
+    }
     localStorage.setItem("user", JSON.stringify(newUser));
   }
 }
 
 function openPage(page) {
+  addingPage.id = "";
+  transactionsPage.id = "";
+  headerTransactionsPageBtn.id = "";
+  headerAddingPageBtn.id = "";
   switch (page) {
     case "Adding":
       showAddingTransactionPage();
+      headerAddingPageBtn.id = "header-current-btn";
       break;
     case "Transactions":
+      showTransactionsPage();
+      headerTransactionsPageBtn.id = "header-current-btn";
       break;
   }
 }
@@ -155,7 +163,7 @@ function showAddingTransactionPage() {
   // Set and change categories
   function chooseCategory(_category) {
     category = _category;
-    addingCategoryTitle.textContent = `Category - ${_category}`;
+    addingCategoryTitle.textContent = `Category - ${_category.categoryName}`;
     resetCategoryItemsBackground();
   }
 
@@ -187,9 +195,7 @@ function showAddingTransactionPage() {
         "click",
         function () {
           if (category == "") {
-            chooseCategory(
-              parsedRequiredUser.categories.income[i].categoryName
-            );
+            chooseCategory(parsedRequiredUser.categories.income[i]);
             const categoryColor =
               window.getComputedStyle(addingCategoryBtn).backgroundColor;
             addingCategoryItem.style.backgroundColor = categoryColor;
@@ -226,9 +232,7 @@ function showAddingTransactionPage() {
         "click",
         function () {
           if (category == "") {
-            chooseCategory(
-              parsedRequiredUser.categories.expense[i].categoryName
-            );
+            chooseCategory(parsedRequiredUser.categories.expense[i]);
             const categoryColor =
               window.getComputedStyle(addingCategoryBtn).backgroundColor;
             addingCategoryItem.style.backgroundColor = categoryColor;
@@ -304,9 +308,7 @@ function showAddingTransactionPage() {
           "click",
           function () {
             if (category == "") {
-              chooseCategory(
-                parsedRequiredUser.categories.income[i].categoryName
-              );
+              chooseCategory(parsedRequiredUser.categories.income[i]);
               const categoryColor =
                 window.getComputedStyle(addingCategoryBtn).backgroundColor;
               addingCategoryItem.style.backgroundColor = categoryColor;
@@ -343,9 +345,7 @@ function showAddingTransactionPage() {
           "click",
           function () {
             if (category == "") {
-              chooseCategory(
-                parsedRequiredUser.categories.expense[i].categoryName
-              );
+              chooseCategory(parsedRequiredUser.categories.expense[i]);
               const categoryColor =
                 window.getComputedStyle(addingCategoryBtn).backgroundColor;
               addingCategoryItem.style.backgroundColor = categoryColor;
@@ -391,9 +391,11 @@ function showAddingTransactionPage() {
     addingDetailsInput.value = "";
     amount = "";
     date = "";
-    category = "";
+    categoryName = "";
     addingCategoryTitle.textContent = "Category";
     addingBudgetTypeBtn.removeEventListener("click", addingTransaction, false);
+    headerTransactionsPageBtn.id = "";
+    headerAddingPageBtn.id = "";
   });
 
   // Adding transaction button
@@ -445,7 +447,7 @@ function addExpense(amount, date, category, details, method) {
   //   return obj.monthNumber === month;
   // });
   const neededMonth = parsedRequiredUser.monthes.find(
-    (e) => e.monthNumber == parseInt(month)
+    (e) => e.monthNumber == parseInt(month - 1)
   );
   console.log(neededMonth);
   let newTransaction = Object.assign({}, transaction);
@@ -454,6 +456,8 @@ function addExpense(amount, date, category, details, method) {
   newTransaction.method = method;
   newTransaction.details = details;
   newTransaction.category = category;
+  newTransaction.date = date;
+  newTransaction.date.day = splittedDate[2];
   neededMonth.transactions.push(newTransaction);
   console.log(
     `[EXPENSE] Amount: ${amount}, date: ${date}, category: ${category}, details: ${details}, methond: ${method}`
@@ -472,19 +476,166 @@ function addIncome(amount, date, category, details, method) {
   //   return obj.monthNumber === month;
   // });
   const neededMonth = parsedRequiredUser.monthes.find(
-    (e) => e.monthNumber == parseInt(month)
+    (e) => e.monthNumber == parseInt(month - 1)
   );
   console.log(neededMonth);
   let newTransaction = Object.assign({}, transaction);
   newTransaction.amount = amount;
-  newTransaction.type = "Income7";
+  newTransaction.type = "Income";
   newTransaction.method = method;
   newTransaction.details = details;
   newTransaction.category = category;
+  newTransaction.date = date;
   neededMonth.transactions.push(newTransaction);
   neededMonth.income += parseInt(amount);
   localStorage.setItem("user", JSON.stringify(parsedRequiredUser));
   console.log(
     `[INCOMR] Amount: ${amount}, date: ${date}, category: ${category}, details: ${details}, methond: ${method}`
   );
+}
+
+function showTransactionsPage() {
+  let requiredUser = localStorage.getItem("user");
+  let parsedRequiredUser = JSON.parse(requiredUser);
+
+  let transactionsAllButton = document.querySelector(".tpt-all-btn");
+  let transactionsIncomesButton = document.querySelector(".tpt-incomes-btn");
+  let transactionsExpensesButton = document.querySelector(".tpt-expenses-btn");
+  transactionsAllButton.id = "tpt-current-btn";
+  transactionsIncomesButton.id = "";
+  transactionsExpensesButton.id = "";
+
+  let transactionsCurrentDateInput = document.querySelector(".tp-current-date");
+  let _now = new Date();
+  let _day = ("0" + _now.getDate()).slice(-2);
+  let _month = ("0" + (_now.getMonth() + 1)).slice(-2);
+  let _today = _now.getFullYear() + "-" + _month + "-" + _day;
+  transactionsCurrentDateInput.value = _today;
+
+  transactionsCurrentDateInput.onchange = function () {
+    let splittedDate = transactionsCurrentDateInput.value.split("-");
+    let _month = splittedDate[1];
+    _month = _month.replace(/^0/, "");
+    // let neededMonth = parsedRequiredUser.monthes.filter((obj) => {
+    //   return obj.monthNumber === month;
+    // });
+    // let month = _now.getMonth();
+    let neededMonth = parsedRequiredUser.monthes.find(
+      (item) => item.monthNumber == parseInt(_month - 1)
+    );
+    const transactionsPageList = document.querySelector(
+      ".transactions-page-container"
+    );
+    transactionsPageList.innerHTML = "";
+    for (let i = 0; i < neededMonth.transactions.length; i++) {
+      let transactionItem = document.createElement("div");
+      transactionItem.className = "tp-item";
+      let transactionMainBlock = document.createElement("div");
+      transactionMainBlock.className = "tp-item-main-block";
+      let transactionItemBlock1 = document.createElement("div");
+      transactionItemBlock1.className = "tp-item-block1";
+      let transactionCategoryBlock = document.createElement("div");
+      transactionCategoryBlock.className = "tp-category-block";
+      transactionCategoryBlock.style.backgroundColor =
+        neededMonth.transactions[i].category.color;
+      let transactionCategoryIcon = document.createElement("i");
+      transactionCategoryIcon.classList.add("fa-solid");
+      transactionCategoryIcon.classList.add(
+        neededMonth.transactions[i].category.icon
+      );
+      transactionCategoryBlock.appendChild(transactionCategoryIcon);
+      transactionItemBlock1.appendChild(transactionCategoryBlock);
+      let transactionInfoBlock = document.createElement("div");
+      transactionInfoBlock.className = "tp-info-block";
+      let transactionCategoryName = document.createElement("p");
+      transactionCategoryName.className = "tp-category-name";
+      transactionCategoryName.textContent =
+        neededMonth.transactions[i].category.categoryName;
+      transactionInfoBlock.appendChild(transactionCategoryName);
+      let transactionDetails = document.createElement("p");
+      transactionDetails.className = "tp-details";
+      transactionDetails.textContent = neededMonth.transactions[i].details;
+      transactionInfoBlock.appendChild(transactionDetails);
+      transactionItemBlock1.appendChild(transactionInfoBlock);
+      transactionMainBlock.appendChild(transactionItemBlock1);
+      let transactionItemBlock2 = document.createElement("div");
+      transactionItemBlock2.className = "tp-item-block2";
+      let transactionAmount = document.createElement("p");
+      transactionAmount.className = "tp-amount";
+      transactionAmount.textContent = neededMonth.transactions[i].amount + " ₴";
+      transactionItemBlock2.appendChild(transactionAmount);
+      transactionMainBlock.appendChild(transactionItemBlock2);
+      transactionItem.appendChild(transactionMainBlock);
+      let transactionSubmainBlock = document.createElement("div");
+      transactionSubmainBlock.className = "tp-item-submain-block";
+      let transactionDate = document.createElement("p");
+      transactionDate.className = "tp-date";
+      transactionDate.textContent = neededMonth.transactions[i].date;
+      transactionSubmainBlock.appendChild(transactionDate);
+      let transactionOptionsBlock = document.createElement("div");
+      transactionOptionsBlock.className = "tp-options-block";
+      let transactionOption1 = document.createElement("div");
+      transactionOption1.className = "tp-option";
+      let transactionOptionIcon1 = document.createElement("i");
+      transactionOptionIcon1.classList.add("fa-solid");
+      if (neededMonth.transactions[i].method == "Cash") {
+        transactionOptionIcon1.classList.add("fa-money-bill-wave");
+      } else if (neededMonth.transactions[i].method == "Card") {
+        transactionOptionIcon1.classList.add("fa-credit-card");
+      }
+      transactionOption1.appendChild(transactionOptionIcon1);
+      transactionOptionsBlock.appendChild(transactionOption1);
+      let transactionOption2 = document.createElement("div");
+      transactionOption2.className = "tp-option";
+      let transactionOptionIcon2 = document.createElement("i");
+      transactionOptionIcon2.classList.add("fa-solid");
+      if (neededMonth.transactions[i].type == "Income") {
+        transactionOptionIcon2.classList.add("fa-arrow-up");
+        transactionOptionIcon2.style.color = "rgb(0, 176, 9)";
+        transactionAmount.style.color = "rgb(0, 176, 9)";
+      } else if (neededMonth.transactions[i].type == "Expense") {
+        transactionOptionIcon2.classList.add("fa-arrow-down");
+        transactionOptionIcon2.style.color = "rgb(218, 0, 0)";
+        transactionAmount.style.color = "rgb(218, 0, 0)";
+      }
+      transactionOption2.appendChild(transactionOptionIcon2);
+      transactionOptionsBlock.appendChild(transactionOption2);
+      transactionSubmainBlock.appendChild(transactionOptionsBlock);
+      transactionItem.appendChild(transactionSubmainBlock);
+      transactionsPageList.appendChild(transactionItem);
+    }
+  };
+  // let transactionsCurrentMonth = document.querySelector(".tp-current-month");
+  // transactionsCurrentMonth.innerHTML = `<i class="fa-regular fa-calendar"></i>${moment().format(
+  //   "LL"
+  // )}`;
+
+  function chooseTransactionsType(type) {
+    transactionsAllButton.id = "";
+    transactionsIncomesButton.id = "";
+    transactionsExpensesButton.id = "";
+    switch (type) {
+      case "All":
+        transactionsAllButton.id = "tpt-current-btn";
+        break;
+      case "Incomes":
+        transactionsIncomesButton.id = "tpt-current-btn";
+        break;
+      case "Expenses":
+        transactionsExpensesButton.id = "tpt-current-btn";
+        break;
+    }
+  }
+
+  transactionsAllButton.addEventListener("click", function () {
+    chooseTransactionsType("All");
+  });
+  transactionsIncomesButton.addEventListener("click", function () {
+    chooseTransactionsType("Incomes");
+  });
+  transactionsExpensesButton.addEventListener("click", function () {
+    chooseTransactionsType("Expenses");
+  });
+
+  transactionsPage.id = "current-page";
 }

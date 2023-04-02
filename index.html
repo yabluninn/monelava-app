@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Monelava</title>
     <link rel="stylesheet" href="src/css/style.css" />
+    <link rel="stylesheet" href="src/css/media.css" />
     <link rel="icon" type="image/x-icon" href="src/img/favicon.png" />
   </head>
   <body>
@@ -18,7 +19,7 @@
           <button class="header-transactions-page-btn" id="">
             <i class="fa-regular fa-rectangle-list"></i>
           </button>
-          <button class="header-adding-page-btn" id="header-current-btn">
+          <button class="header-adding-page-btn" id="">
             <i class="fa-regular fa-plus"></i>
           </button>
           <button class="header-categories-page-btn" id="">
@@ -27,13 +28,20 @@
           <button class="header-chart-page-btn" id="">
             <i class="fa-solid fa-chart-pie"></i>
           </button>
+          <button class="header-settings-page-btn" id="">
+            <i class="fa-solid fa-gear"></i>
+          </button>
         </div>
       </header>
       <div class="adding-modal-window" id="">
-        <p class="adding-title">Type</p>
+        <p class="adding-header">Add trainsaction</p>
         <div class="adding-types-buttons">
-          <button class="adding-income-btn" id="">Income</button>
-          <button class="adding-expense-btn" id="">Expense</button>
+          <button class="adding-income-btn" id="">
+            <i class="fa-solid fa-arrow-up"></i>Income
+          </button>
+          <button class="adding-expense-btn" id="">
+            <i class="fa-solid fa-arrow-down"></i>Expense
+          </button>
         </div>
         <div class="adding-amount-date-block">
           <div class="adding-amount-block">
@@ -91,7 +99,47 @@
         </div>
       </div>
       <div class="transactions-page" id="">
-        <p class="transactions-page-title">Transactions</p>
+        <!-- <p class="transactions-page-title">Transactions</p> -->
+        <div class="transactions-page-types-block">
+          <button class="tpt-all-btn" id="">All</button>
+          <button class="tpt-incomes-btn" id="">Incomes</button>
+          <button class="tpt-expenses-btn" id="">Expenses</button>
+        </div>
+        <input type="date" class="tp-current-date" />
+        <!-- <select name="monthes" id="">
+          <option value="march">March</option>
+          <option value="march">April</option>
+          <option value="march">May</option>
+        </select> -->
+        <div class="transactions-page-container">
+          <div class="tp-item">
+            <div class="tp-item-main-block">
+              <div class="tp-item-block1">
+                <div class="tp-category-block">
+                  <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+                <div class="tp-info-block">
+                  <p class="tp-category-name">Groceries</p>
+                  <p class="tp-details">Details</p>
+                </div>
+              </div>
+              <div class="tp-item-block2">
+                <p class="tp-amount">13.04</p>
+              </div>
+            </div>
+            <div class="tp-item-submain-block">
+              <p class="tp-date">02/04/2023</p>
+              <div class="tp-options-block">
+                <div class="tp-option">
+                  <i class="fa-solid fa-credit-card"></i>
+                </div>
+                <div class="tp-option">
+                  <i class="fa-solid fa-arrow-down"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <!-- Moment.js library (Date & Time) -->
