@@ -2,8 +2,9 @@
   .header {
     width: 100%;
     margin-bottom: 0;
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
+    /* border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0; */
+    border-radius: 0;
   }
   .header-buttons-block button {
     width: 45px;
