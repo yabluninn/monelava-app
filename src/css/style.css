@@ -205,7 +205,7 @@ button:hover {
 }
 .adding-category-block {
   width: 85%;
-  height: fit-content;
+  height: 17%;
   display: flex;
   justify-content: start;
   align-items: center;

@@ -99,6 +99,9 @@ const addingDetailsInput = document.querySelector(".adding-details-input");
 start();
 
 function start() {
+  // document.body.addEventListener("touchmove", function (e) {
+  //   e.preventDefault();
+  // });
   headerAddingPageBtn.addEventListener("click", function () {
     openPage("Adding");
   });
