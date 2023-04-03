@@ -12,3 +12,7 @@
 
 - Added mobile adaptive design;
 - Added settings button;
+
+# v.1.0.1.1 (03.04.2023):
+
+- Fixed scrolling web app on the mobile devices
